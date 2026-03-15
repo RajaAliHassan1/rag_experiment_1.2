@@ -1,0 +1,10 @@
+[
+  {
+    "query": "What documents are required for a UK visa?",
+    "answer_doc": "visa_guide.pdf"
+  },
+  {
+    "query": "What is the baggage allowance?",
+    "answer_doc": "baggage_rules.pdf"
+  }
+]
