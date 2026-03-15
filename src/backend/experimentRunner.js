@@ -1,33 +1,16 @@
 const loadPDF = require("./pdfLoader");
-const createChunks = require("./chunker");
+const sentenceChunker = require("./chunker");
 
 async function runExperiment() {
 
-  const chunkSizes = [20, 50, 100];
-  const overlaps = [5, 10, 15];
+  const sentenceSizes = [2, 4, 6];
 
   const text = await loadPDF("./src/data/documents/cancellationDoc.pdf");
 
-  let results = [];
+  const results = sentenceChunker(text, sentenceSizes);
 
-  for (let i = 0; i < chunkSizes.length; i++) {
+  console.log(results);
 
-    const size = chunkSizes[i];
-    const overlap = overlaps[i];
-
-    const chunks = createChunks(text, size, overlap);
-
-    results.push({
-      chunkSize: size,
-      overlap: overlap,
-      chunksCreated: chunks.length,
-      chunksText : chunks,
-    });
-
-    console.log(`Size ${size} | Overlap ${overlap} | Chunks ${chunks.length}`);
-  }
-
-  console.log("boarded")
   return results;
 }
 

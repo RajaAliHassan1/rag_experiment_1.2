@@ -1,21 +1,28 @@
-function createChunks(text, chunkSize, overlap) {
+function createChunks(text, sentencesPerChunk) {
 
-  const words = text.split(" ");
-  const chunks = [];
+   const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
 
-  let start = 0;
+  const results = [];
 
-  while (start < words.length) {
+  for (const size of sentencesPerChunk) {
 
-    const end = start + chunkSize;
+    const chunks = [];
 
-    const chunk = words.slice(start, end).join(" ");
-    chunks.push(chunk);
+    for (let i = 0; i < sentences.length; i += size) {
 
-    start += chunkSize - overlap;
+      const chunk = sentences.slice(i, i + size).join(" ");
+      chunks.push(chunk);
+
+    }
+    results.push({
+      sentencesPerChunk: size,
+      chunksCreated: chunks.length,
+      chunks: chunks
+    });
+
   }
 
-  return chunks;
+  return results;
 }
 
 module.exports = createChunks;
